@@ -1,97 +1,90 @@
+import pandas as pd
+
+# Sample data (rows) as dictionary for demonstration
+data = {
+    "post_id": [12422100848, 12422102686, 14881634282, 14181779172, 14182964865, 14183299503, 14249902429, 14253357902, 14281064685],
+    "thread_id": [1088751326, 1088751326, 1088751326, 1204696868, 1204696868, 1204696868, 1204696868, 1204696868, 1204696868],
+    "forum_id": [2166714] * 9,
+    "user_id": [374301095, 374301095, 333300868, 460098063, 459315671, 460100568, 460100568, 460098063, 460098063],
+    "username": ["蒲公英5120", "蒲公英5120", "缘逢3658", "心你而碎", "殘缺不全のhea", "《心事》", "《心事》", "心你而碎", "心你而碎"],
+    "nickname": ["", "", "", "", "", "", "", "", ""],
+    "portrait_id": ["tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w", "tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w", "tb.1.bba9c6a5.KXq49vdFhEfL5mo3ZPNy8w", 
+                    "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "tb.1.bb9759fc.pqKJCIXCFyh0GmJhwNYzLQ", "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", 
+                    "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw"],
+    "image_url": ["", "", "", "https://imgsa.baidu.com/forum/w%3D580/sign=9bed2cf9a4c27d1ea5263bcc2bd4adaf/1ecd5c1ed21b0ef454070603ddc451da80cb3e8b.jpg", "", "", "", "", ""],
+    "timestamp": ["2011-05-24 18:13:00+00:00", "2011-05-24 18:14:00+00:00", "2011-10-19 00:55:00+00:00", 
+                  "2011-09-09 14:33:00+00:00", "2011-09-09 16:16:00+00:00", "2011-09-09 16:43:00+00:00", 
+                  "2011-09-13 12:55:00+00:00", "2011-09-13 18:06:00+00:00", "2011-09-15 20:32:00+00:00"],
+    "post_number": [1, 2, 3, 1, 2, 3, 4, 5, 6],
+    "text": ["", "", "股票不会", "", "顶", "顶", "顶", "顶", "顶"],
+    "comment_id": [""] * 9,
+    "is_comment": ["no"] * 9,
+    "thread_title": ["亿纬锂能官方讨论群 150728534 验证：贴吧官方", "亿纬锂能官方讨论群 150728534 验证：贴吧官方", "亿纬锂能官方讨论群 150728534 验证：贴吧官方",
+                    "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1", 
+                    "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1"],
+    "thread_url": ["https://tieba.baidu.com/p/1088751326", "https://tieba.baidu.com/p/1088751326", "https://tieba.baidu.com/p/1088751326",
+                   "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868", 
+                   "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868"]
+}
+
+# Convert data to DataFrame
+df = pd.DataFrame(data)
+
+# Generate HTML
+html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Table</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  th {
-    background-color: #f2f2f2;
-  }
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tieba Baidu Scraping Project</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: auto; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:hover { background-color: #f5f5f5; }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Tieba Baidu Scraping Project</h1>
+        <table>
+            <tr>
+                <th>Thread Title</th>
+                <th>Thread URL</th>
+                <th>Post ID</th>
+                <th>User</th>
+                <th>Text</th>
+                <th>Timestamp</th>
+                <th>Image URL</th>
+            </tr>"""
 
-<h2>Data Table</h2>
-<table id="data-table">
-  <thead>
-    <tr>
-      <th>Post ID</th>
-      <th>Thread ID</th>
-      <th>Forum ID</th>
-      <th>User ID</th>
-      <th>Username</th>
-      <th>Nickname</th>
-      <th>Image URL</th>
-      <th>Timestamp</th>
-      <th>Post Number</th>
-      <th>Text</th>
-      <th>Thread Title</th>
-      <th>Thread URL</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+# Populate rows with data from DataFrame
+for _, row in df.iterrows():
+    html_content += f"""
+            <tr>
+                <td>{row['thread_title']}</td>
+                <td><a href="{row['thread_url']}">Link</a></td>
+                <td>{row['post_id']}</td>
+                <td>{row['username']}</td>
+                <td>{row['text']}</td>
+                <td>{row['timestamp']}</td>
+                <td>{row['image_url'] if row['image_url'] else 'N/A'}</td>
+            </tr>"""
 
-<script>
-  const data = [
-    {
-      "post_id": "12422100848",
-      "thread_id": "1088751326",
-      "forum_id": "2166714",
-      "user_id": "374301095",
-      "username": "蒲公英5120",
-      "nickname": "",
-      "portrait_id": "tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w",
-      "image_url": "",
-      "timestamp": "2011-05-24 18:13:00+00:00",
-      "post_number": "1",
-      "text": "",
-      "comment_id": "",
-      "is_comment": "no",
-      "thread_title": "亿纬锂能官方讨论群 150728534 验证：贴吧官方",
-      "thread_url": "https://tieba.baidu.com/p/1088751326"
-    },
-    // Add more data here
-  ];
-
-  const tableBody = document.querySelector("#data-table tbody");
-
-  data.forEach(row => {
-    const tableRow = document.createElement("tr");
-    tableRow.innerHTML = `
-      <td>${row.post_id}</td>
-      <td>${row.thread_id}</td>
-      <td>${row.forum_id}</td>
-      <td>${row.user_id}</td>
-      <td>${row.username}</td>
-      <td>${row.nickname || 'N/A'}</td>
-      <td>${row.image_url ? `<img src="${row.image_url}" width="50" height="50">` : 'N/A'}</td>
-      <td>${row.timestamp}</td>
-      <td>${row.post_number}</td>
-      <td>${row.text || 'N/A'}</td>
-      <td>${row.thread_title}</td>
-      <td><a href="${row.thread_url}" target="_blank">${row.thread_url}</a></td>
-    `;
-    tableBody.appendChild(tableRow);
-  });
-</script>
-
+# Closing HTML tags
+html_content += """
+        </table>
+    </div>
 </body>
 </html>
+"""
+
+# Save to file
+with open("tieba_scraping_project.html", "w", encoding="utf-8") as file:
+    file.write(html_content)
+
+print("HTML file generated successfully.")
