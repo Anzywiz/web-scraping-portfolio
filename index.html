@@ -1,90 +1,108 @@
-import pandas as pd
-
-# Sample data (rows) as dictionary for demonstration
-data = {
-    "post_id": [12422100848, 12422102686, 14881634282, 14181779172, 14182964865, 14183299503, 14249902429, 14253357902, 14281064685],
-    "thread_id": [1088751326, 1088751326, 1088751326, 1204696868, 1204696868, 1204696868, 1204696868, 1204696868, 1204696868],
-    "forum_id": [2166714] * 9,
-    "user_id": [374301095, 374301095, 333300868, 460098063, 459315671, 460100568, 460100568, 460098063, 460098063],
-    "username": ["蒲公英5120", "蒲公英5120", "缘逢3658", "心你而碎", "殘缺不全のhea", "《心事》", "《心事》", "心你而碎", "心你而碎"],
-    "nickname": ["", "", "", "", "", "", "", "", ""],
-    "portrait_id": ["tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w", "tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w", "tb.1.bba9c6a5.KXq49vdFhEfL5mo3ZPNy8w", 
-                    "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "tb.1.bb9759fc.pqKJCIXCFyh0GmJhwNYzLQ", "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", 
-                    "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw"],
-    "image_url": ["", "", "", "https://imgsa.baidu.com/forum/w%3D580/sign=9bed2cf9a4c27d1ea5263bcc2bd4adaf/1ecd5c1ed21b0ef454070603ddc451da80cb3e8b.jpg", "", "", "", "", ""],
-    "timestamp": ["2011-05-24 18:13:00+00:00", "2011-05-24 18:14:00+00:00", "2011-10-19 00:55:00+00:00", 
-                  "2011-09-09 14:33:00+00:00", "2011-09-09 16:16:00+00:00", "2011-09-09 16:43:00+00:00", 
-                  "2011-09-13 12:55:00+00:00", "2011-09-13 18:06:00+00:00", "2011-09-15 20:32:00+00:00"],
-    "post_number": [1, 2, 3, 1, 2, 3, 4, 5, 6],
-    "text": ["", "", "股票不会", "", "顶", "顶", "顶", "顶", "顶"],
-    "comment_id": [""] * 9,
-    "is_comment": ["no"] * 9,
-    "thread_title": ["亿纬锂能官方讨论群 150728534 验证：贴吧官方", "亿纬锂能官方讨论群 150728534 验证：贴吧官方", "亿纬锂能官方讨论群 150728534 验证：贴吧官方",
-                    "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1", 
-                    "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1", "亿纬锂能这支股票还可以做波段！！！！！1"],
-    "thread_url": ["https://tieba.baidu.com/p/1088751326", "https://tieba.baidu.com/p/1088751326", "https://tieba.baidu.com/p/1088751326",
-                   "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868", 
-                   "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868", "https://tieba.baidu.com/p/1204696868"]
-}
-
-# Convert data to DataFrame
-df = pd.DataFrame(data)
-
-# Generate HTML
-html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tieba Baidu Scraping Project</title>
+    <title>Tieba Baidu Scraping Project Portfolio</title>
+    <!-- Link to DataTables CSS for styling -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { width: 80%; margin: auto; }
-        h1 { text-align: center; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        tr:hover { background-color: #f5f5f5; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #007acc;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Tieba Baidu Scraping Project</h1>
-        <table>
-            <tr>
-                <th>Thread Title</th>
-                <th>Thread URL</th>
-                <th>Post ID</th>
-                <th>User</th>
-                <th>Text</th>
-                <th>Timestamp</th>
-                <th>Image URL</th>
-            </tr>"""
-
-# Populate rows with data from DataFrame
-for _, row in df.iterrows():
-    html_content += f"""
-            <tr>
-                <td>{row['thread_title']}</td>
-                <td><a href="{row['thread_url']}">Link</a></td>
-                <td>{row['post_id']}</td>
-                <td>{row['username']}</td>
-                <td>{row['text']}</td>
-                <td>{row['timestamp']}</td>
-                <td>{row['image_url'] if row['image_url'] else 'N/A'}</td>
-            </tr>"""
-
-# Closing HTML tags
-html_content += """
+        <h1>Scraping a Chinese Social Media Thread - Tieba Baidu</h1>
+        <p>For this project, I was tasked with scraping posts from multiple forums on the Tieba Baidu platform. Over 1 million posts were successfully extracted.</p>
+        <p>Each post was extracted with fields like post date, post text, post number, image URL, and other key details. After ensuring no duplicates, the cleaned data was delivered as MySQL files, ready for further analysis.</p>
+        
+        <h2>Sample Data Table</h2>
+        <table id="data-table" class="display">
+            <thead>
+                <tr>
+                    <th>Post ID</th>
+                    <th>Thread ID</th>
+                    <th>Forum ID</th>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Nickname</th>
+                    <th>Portrait ID</th>
+                    <th>Image URL</th>
+                    <th>Timestamp</th>
+                    <th>Post Number</th>
+                    <th>Post Text</th>
+                    <th>Comment ID</th>
+                    <th>Is Comment</th>
+                    <th>Thread Title</th>
+                    <th>Thread URL</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Rows will be dynamically added here with JavaScript -->
+            </tbody>
         </table>
     </div>
+
+    <!-- jQuery and DataTables JavaScript libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sample data rows for display; replace with your data dynamically or add more rows
+            const dataRows = [
+                [12422100848, 1088751326, 2166714, 374301095, "蒲公英5120", "", "tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w", "", "2011-05-24 18:13:00+00:00", 1, "", "", "no", "亿纬锂能官方讨论群 150728534 验证：贴吧官方", "https://tieba.baidu.com/p/1088751326"],
+                [12422102686, 1088751326, 2166714, 374301095, "蒲公英5120", "", "tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w", "", "2011-05-24 18:14:00+00:00", 2, "", "", "no", "亿纬锂能官方讨论群 150728534 验证：贴吧官方", "https://tieba.baidu.com/p/1088751326"],
+                [14881634282, 1088751326, 2166714, 333300868, "缘逢3658", "", "tb.1.bba9c6a5.KXq49vdFhEfL5mo3ZPNy8w", "", "2011-10-19 00:55:00+00:00", 3, "股票不会", "", "no", "亿纬锂能官方讨论群 150728534 验证：贴吧官方", "https://tieba.baidu.com/p/1088751326"],
+                [14181779172, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "https://imgsa.baidu.com/forum/w%3D580/sign=9bed2cf9a4c27d1ea5263bcc2bd4adaf/1ecd5c1ed21b0ef454070603ddc451da80cb3e8b.jpg", "2011-09-09 14:33:00+00:00", 1, "", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14182964865, 1204696868, 2166714, 459315671, "殘缺不全のhea", "", "tb.1.bb9759fc.pqKJCIXCFyh0GmJhwNYzLQ", "", "2011-09-09 16:16:00+00:00", 2, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14183299503, 1204696868, 2166714, 460100568, "《心事》", "", "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", "", "2011-09-09 16:43:00+00:00", 3, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14249902429, 1204696868, 2166714, 460100568, "《心事》", "", "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", "", "2011-09-13 12:55:00+00:00", 4, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14253357902, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "", "2011-09-13 18:06:00+00:00", 5, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14281064685, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "", "2011-09-15 20:32:00+00:00", 6, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"]
+
+
+                // Add more rows or populate this array with data from your JSON or Excel file.
+            ];
+
+            const tableBody = document.getElementById("table-body");
+            dataRows.forEach(row => {
+                const tr = document.createElement("tr");
+                row.forEach(cellText => {
+                    const td = document.createElement("td");
+                    td.textContent = cellText;
+                    tr.appendChild(td);
+                });
+                tableBody.appendChild(tr);
+            });
+
+            // Initialize DataTable
+            $('#data-table').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+            });
+        });
+    </script>
 </body>
 </html>
-"""
-
-# Save to file
-with open("tieba_scraping_project.html", "w", encoding="utf-8") as file:
-    file.write(html_content)
-
-print("HTML file generated successfully.")
