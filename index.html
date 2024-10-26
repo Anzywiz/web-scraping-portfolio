@@ -1,93 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tieba Baidu Scraping Project Portfolio</title>
-    <!-- Link to DataTables CSS for styling -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        h1 {
-            color: #007acc;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Table</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Scraping a Chinese Social Media Thread - Tieba Baidu</h1>
-        <p>For this project, I was tasked with scraping posts from multiple forums on the Tieba Baidu platform. Over 1 million posts were successfully extracted.</p>
-        <p>Each post was extracted with fields like post date, post text, post number, image URL, and other key details. After ensuring no duplicates, the cleaned data was delivered as MySQL files, ready for further analysis.</p>
-        
-        <h2>Sample Data Table</h2>
-        <table id="data-table" class="display">
-            <thead>
-                <tr>
-                    <th>Post Date</th>
-                    <th>Post Text</th>
-                    <th>Post Number</th>
-                    <th>Image URL</th>
-                    <th>Discussion Thread</th>
-                    <th>Forum Name</th>
-                    <th>Username</th>
-                    <th>User Sex</th>
-                    <th>Comment Status</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Rows will be dynamically added here with JavaScript -->
-            </tbody>
-        </table>
-    </div>
 
-    <!-- jQuery and DataTables JavaScript libraries -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Sample data rows for display; replace with your data dynamically or add more rows
-            const dataRows = [
-                ["2023-10-01", "Sample text 1", "001", "image1.jpg", "Thread Title 1", "Forum A", "User1", "M", "Yes"],
-                ["2023-10-02", "Sample text 2", "002", "", "Thread Title 2", "Forum B", "User2", "F", "No"],
-                // Add more rows or populate this array with data from your JSON or Excel file.
-            ];
+<h2>Data Table</h2>
+<table id="data-table">
+  <thead>
+    <tr>
+      <th>Post ID</th>
+      <th>Thread ID</th>
+      <th>Forum ID</th>
+      <th>User ID</th>
+      <th>Username</th>
+      <th>Nickname</th>
+      <th>Image URL</th>
+      <th>Timestamp</th>
+      <th>Post Number</th>
+      <th>Text</th>
+      <th>Thread Title</th>
+      <th>Thread URL</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
 
-            const tableBody = document.getElementById("table-body");
-            dataRows.forEach(row => {
-                const tr = document.createElement("tr");
-                row.forEach(cellText => {
-                    const td = document.createElement("td");
-                    td.textContent = cellText;
-                    tr.appendChild(td);
-                });
-                tableBody.appendChild(tr);
-            });
+<script>
+  const data = [
+    {
+      "post_id": "12422100848",
+      "thread_id": "1088751326",
+      "forum_id": "2166714",
+      "user_id": "374301095",
+      "username": "蒲公英5120",
+      "nickname": "",
+      "portrait_id": "tb.1.a5c6ac4b.F9ZOrI33wJtPIk6_91gJ4w",
+      "image_url": "",
+      "timestamp": "2011-05-24 18:13:00+00:00",
+      "post_number": "1",
+      "text": "",
+      "comment_id": "",
+      "is_comment": "no",
+      "thread_title": "亿纬锂能官方讨论群 150728534 验证：贴吧官方",
+      "thread_url": "https://tieba.baidu.com/p/1088751326"
+    },
+    // Add more data here
+  ];
 
-            // Initialize DataTable
-            $('#data-table').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-            });
-        });
-    </script>
+  const tableBody = document.querySelector("#data-table tbody");
+
+  data.forEach(row => {
+    const tableRow = document.createElement("tr");
+    tableRow.innerHTML = `
+      <td>${row.post_id}</td>
+      <td>${row.thread_id}</td>
+      <td>${row.forum_id}</td>
+      <td>${row.user_id}</td>
+      <td>${row.username}</td>
+      <td>${row.nickname || 'N/A'}</td>
+      <td>${row.image_url ? `<img src="${row.image_url}" width="50" height="50">` : 'N/A'}</td>
+      <td>${row.timestamp}</td>
+      <td>${row.post_number}</td>
+      <td>${row.text || 'N/A'}</td>
+      <td>${row.thread_title}</td>
+      <td><a href="${row.thread_url}" target="_blank">${row.thread_url}</a></td>
+    `;
+    tableBody.appendChild(tableRow);
+  });
+</script>
+
 </body>
 </html>
