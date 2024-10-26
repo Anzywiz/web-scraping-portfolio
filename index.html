@@ -6,16 +6,35 @@
     <title>Tieba Baidu Scraping Project Portfolio</title>
     <!-- Link to DataTables CSS for styling -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             color: #333;
         }
-        h1 {
-            color: #007acc;
+        header {
+            background: #007acc;
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            margin: 15px 0;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
         }
         .container {
             max-width: 900px;
@@ -23,21 +42,62 @@
             background: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         table {
             width: 100%;
             margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007acc;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007acc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #005f99;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Scraping a Chinese Social Media Thread - Tieba Baidu</h1>
+    <header>
+        <h1>Tieba Baidu Scraping Project Portfolio</h1>
+        <nav>
+            <a href="#sample-data">Sample Data</a>
+            <a href="#about">About the Project</a>
+        </nav>
+    </header>
+
+    <div class="container" id="about">
+        <h2>About the Project</h2>
         <p>For this project, I was tasked with scraping posts from multiple forums on the Tieba Baidu platform. Over 1 million posts were successfully extracted.</p>
         <p>Each post was extracted with fields like post date, post text, post number, image URL, and other key details. After ensuring no duplicates, the cleaned data was delivered as MySQL files, ready for further analysis.</p>
         
-        <h2>Sample Data Table</h2>
+        <h2 id="sample-data">Sample Data Table</h2>
         <table id="data-table" class="display">
             <thead>
                 <tr>
@@ -62,7 +122,12 @@
                 <!-- Rows will be dynamically added here with JavaScript -->
             </tbody>
         </table>
+        <a href="#top" class="btn">Back to Top</a>
     </div>
+
+    <footer>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    </footer>
 
     <!-- jQuery and DataTables JavaScript libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -78,11 +143,11 @@
                 [14182964865, 1204696868, 2166714, 459315671, "殘缺不全のhea", "", "tb.1.bb9759fc.pqKJCIXCFyh0GmJhwNYzLQ", "", "2011-09-09 16:16:00+00:00", 2, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
                 [14183299503, 1204696868, 2166714, 460100568, "《心事》", "", "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", "", "2011-09-09 16:43:00+00:00", 3, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
                 [14249902429, 1204696868, 2166714, 460100568, "《心事》", "", "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", "", "2011-09-13 12:55:00+00:00", 4, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14249902429, 1204696868, 2166714, 460100568, "《心事》", "", "tb.1.356c7baf.ZdOauOevG_bv-0KXS3H6VQ", "", "2011-09-13 12:55:00+00:00", 4, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
                 [14253357902, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "", "2011-09-13 18:06:00+00:00", 5, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
-                [14281064685, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "", "2011-09-15 20:32:00+00:00", 6, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"]
-
-
-                // Add more rows or populate this array with data from your JSON or Excel file.
+                [14281064685, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "", "2011-09-15 20:32:00+00:00", 6, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14321665483, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "", "2011-09-20 10:45:00+00:00", 7, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"],
+                [14371665483, 1204696868, 2166714, 460098063, "心你而碎", "", "tb.1.4868492.C57PIzKTJh7SEntyxpXBIw", "", "2011-09-25 09:15:00+00:00", 8, "顶", "", "no", "亿纬锂能这支股票还可以做波段！！！！！1", "https://tieba.baidu.com/p/1204696868"]
             ];
 
             const tableBody = document.getElementById("table-body");
